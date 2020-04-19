@@ -1,0 +1,4 @@
+django==2.1.5
+mysql-connector-python
+flake8
+django-debug-toolbar
