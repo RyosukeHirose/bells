@@ -37,15 +37,18 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
-class AdminUser(AbstractBaseUser, PermissionsMixin):
+
+class User(AbstractBaseUser, PermissionsMixin):
     """
     An abstract base class implementing a fully featured User model with
     admin-compliant permissions.
     Username and password are required. Other fields are optional.
     """
+    email = models.EmailField('email', unique=True)
+
     username_validator = UnicodeUsernameValidator()
     username = models.CharField(
-        # 'username',
+        'username',
         max_length=150,
         help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.',
         validators=[username_validator],
@@ -53,14 +56,13 @@ class AdminUser(AbstractBaseUser, PermissionsMixin):
             'unique': "A user with that username already exists.",
         },
     )
-    email = models.EmailField('email', blank=True, unique=True)
     is_staff = models.BooleanField(
         'staff status',
         default=False,
         help_text='Designates whether the user can log into this admin site.',
     )
     is_active = models.BooleanField(
-        'active',
+        'is_active',
         default=True,
         help_text=
             'Designates whether this user should be treated as active. '
@@ -69,39 +71,39 @@ class AdminUser(AbstractBaseUser, PermissionsMixin):
     )
 
     is_trainer=models.BooleanField(
-        'trainer',
+        'is_trainer',
         default=False,
+        help_text=
+            'can write article',
     )
-
-    date_joined = models.DateTimeField('date joined', default=timezone.now)
-
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     objects = UserManager()
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = []
+
+    follows = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        related_name="followers",
+        blank=True,
+    )
+
 
 
     class Meta:
         verbose_name = 'user'
         verbose_name_plural = 'users'
-        # abstract = True
 
     def clean(self):
         super().clean()
         self.email = self.__class__.objects.normalize_email(self.email)
 
-    def get_full_name(self, username):
-        """
-        Return the first_name plus the last_name, with a space in between.
-        """
-        return username.strip()
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
-
-    objects = UserManager()
 
 
     def __str__(self):
@@ -110,103 +112,22 @@ class AdminUser(AbstractBaseUser, PermissionsMixin):
     def natural_key(self):
         return (self.username,)
 
-class TrainerPermission(models.Model):
-    name = models.CharField(_('name'), max_length=255)
-    content_type = models.ForeignKey(
-        ContentType,
-        models.CASCADE,
-        verbose_name=_('content type'),
-    )
-    codename = models.CharField(_('codename'), max_length=100)
-
-    objects = PermissionManager()
-
-    class Meta:
-        verbose_name = _('permission')
-        verbose_name_plural = _('permissions')
-        unique_together = [['content_type', 'codename']]
-        ordering = ['content_type__app_label', 'content_type__model', 'codename']
-
-    def __str__(self):
-        return '%s | %s' % (self.content_type, self.name)
-
-    def natural_key(self):
-        return (self.codename,) + self.content_type.natural_key()
-    natural_key.dependencies = ['contenttypes.contenttype']
-
-
-class TrainerGroup(models.Model):
-    name = models.CharField(_('name'), max_length=150, unique=True)
-    permissions = models.ManyToManyField(
-        TrainerPermission,
-        verbose_name=_('permissions'),
-        blank=True,
-    )
-
-    objects = GroupManager()
-
-    class Meta:
-        verbose_name = _('group')
-        verbose_name_plural = _('groups')
-        db_table = "test_db"
-
-    def __str__(self):
-        return self.name
-
-    def natural_key(self):
-        return (self.name,)
-
-
-
-class Trainer(AdminUser):
-    is_trainer = True
-
-    trainer_groups = models.ManyToManyField(
-        TrainerGroup,
-        verbose_name=_('groups'),
-        blank=True,
-        help_text=_(
-            'The groups this user belongs to. A user will get all permissions '
-            'granted to each of their groups.'
-        ),
-        related_name="trainer",
-        related_query_name="trainser_permissons",
-    )
-
-    trainer_permissions = models.ManyToManyField(
-        TrainerPermission,
-        verbose_name=_('user permissions'),
-        blank=True,
-        help_text=_('Specific permissions for this user.'),
-        related_name="has_trainer",
-        related_query_name="user_permissions",
-    )
-
-
 class Article(models.Model):
     title = models.CharField(max_length=70)
     detail = models.TextField()
-    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    trainer = models.ForeignKey(User, on_delete=models.CASCADE)
 
-class User(AdminUser):
-    follows = models.ManyToManyField(
-        Trainer,
-        related_name="followers",
+    user_likes = models.ManyToManyField(
+        User,
+        related_name="likes",
         blank=True,
     )
 
-    likes = models.ManyToManyField(
-        Article,
-        related_name="like_user",
+    user_favorites = models.ManyToManyField(
+        User,
+        related_name="favorites",
         blank=True,
     )
-
-    favorites = models.ManyToManyField(
-        Article,
-        related_name="favorite_user",
-        blank=True,
-    )
-
 
 class Comment(models.Model):
     comment = models.CharField(max_length=256)
@@ -241,12 +162,12 @@ class QuestionBox(models.Model):
 class Answer(models.Model):
     question_box = models.ForeignKey(
         QuestionBox,
-        related_name = "answer",
+        related_name = "answers",
         on_delete=models.CASCADE
     )
-    trainer = models.ForeignKey(
-        Trainer,
-        related_name="answer",
+    User = models.ForeignKey(
+        User,
+        related_name="answers",
         on_delete=models.SET_NULL,
         null=True
     )

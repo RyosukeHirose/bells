@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-AUTH_USER_MODEL = 'bells.Trainer'
+AUTH_USER_MODEL = 'bells.User'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'bells:index'
@@ -138,3 +138,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)

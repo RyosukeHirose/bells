@@ -39,8 +39,6 @@ class SignUpView(generic.CreateView):
     template_name = 'registration/signup.html'
 
 class UserLoginView(LoginView):
-    AUTH_USER_MODEL = 'bells.AdminUser'
-    print("------------------------------")
     form_class = UserLoginForm
     template_name = 'registration/login.html'
 

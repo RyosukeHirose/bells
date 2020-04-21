@@ -11,7 +11,7 @@
                 <div class="masthead-heading text-uppercase"></div>
             </div>
             {% if user.is_authenticated %}
-                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="{% url 'bells:dashboard' %}">{{ user.is_trainer }}マイページ</a>
+                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="{% url 'bells:dashboard' %}">{{ user.username }}さんのマイページ</a>
             {% else %}
                 <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="{% url 'login' %}">ログイン</a>
             {% endif %}
@@ -78,7 +78,7 @@
                             ><div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="../../static/assets/img/portfolio/01-thumbnail.jpg" alt=""
+                            <img class="img-fluid" src="../../static/index/assets/img/portfolio/01-thumbnail.jpg" alt=""
                         /></a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">Threads</div>
