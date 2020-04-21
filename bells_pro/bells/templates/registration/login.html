@@ -4,92 +4,19 @@
 {% block content %}
 
 <body>
-    <h1>ログイン</h1>
-    <form method="post">
+    <h1>ユーザーログイン</h1>
+    <form  action="{% url 'bells:login'%}" method="post">
         {% csrf_token %}
         {% bootstrap_form form layout='' %}
         <button type="submit">ログイン</button>
     </form>
+
+
+
+    <!-- <h1>トレーナーログイン</h1> -->
+
+
+
 </body>
-<p>aaaa
-
-
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</p>
 
 {% endblock %}

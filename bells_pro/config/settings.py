@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-AUTH_USER_MODEL = 'bells.AdminUser'
+AUTH_USER_MODEL = 'bells.Trainer'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'bells:index'
