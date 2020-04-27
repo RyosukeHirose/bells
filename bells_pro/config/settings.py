@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'mediumeditor',
+    'mdeditor',
     'bootstrap4',
     'bells.apps.BellsConfig',
     'django.contrib.admin',
@@ -49,7 +51,14 @@ AUTH_USER_MODEL = 'bells.User'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'bells:index'
 
-
+# markeditorにアップロードファイル格納場所
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/'
+MDEDITOR_CONFIGS = {
+    'default': {
+        'language': 'en',
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

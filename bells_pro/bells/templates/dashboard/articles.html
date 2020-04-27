@@ -1,0 +1,23 @@
+{% extends 'base_dashboard.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+{% load markdown_extras %}
+
+{% block dashboard %}
+<div class="content">
+
+    <ul>
+
+        {% for article in articles%}
+        <a href="{%  url 'bells:article' article.trainer article.id%}">
+            <li>{{ article.detail|markdown|safe }}</li>
+        </a>
+        <p>---------------</p>
+
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}

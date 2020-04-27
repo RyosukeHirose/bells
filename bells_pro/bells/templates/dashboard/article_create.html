@@ -1,0 +1,23 @@
+{% extends 'base_dashboard.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block dashboard %}
+<div class="content">
+    <form method="post" >
+        {{user}}
+        {{ form.title }}
+        {{ form.trainer }}
+
+        {{ form.id}}
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.detail }}
+        <p><input type="submit" value=送信></p>
+    </form>
+
+</div>
+
+
+{% endblock %}

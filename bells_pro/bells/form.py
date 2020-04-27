@@ -1,7 +1,9 @@
 from django import forms
+from .models import Article
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
+from mdeditor.fields import MDTextFormField # 追加
 
 User = get_user_model()
 
@@ -38,3 +40,21 @@ class UserLoginForm(AuthenticationForm):
     )
 
     
+ 
+class ArticleForm(forms.ModelForm):
+
+    class Meta:
+        model = Article
+        fields = ('title', 'detail', 'trainer')
+
+
+# mediumeditorの場合のフォーム
+# from mediumeditor.widgets import MediumEditorTextarea
+class MyForm(forms.ModelForm):
+    
+    class Meta:
+        model = Article
+        # widgets = {
+        #     'detail': MediumEditorTextarea(),
+        # }
+        fields = ('title', 'detail',)

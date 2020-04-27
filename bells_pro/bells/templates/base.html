@@ -16,6 +16,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static 'index/css/styles.css'%}" rel="stylesheet" />
     <title>django-account</title>
+    {{ form.media }}
 </head>
 <body>
     <!-- Navigation-->
@@ -25,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}">ログアウト</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'bells:dashboard'  user %}">ログアウト</a></li>
                 </ul>               
                 {% else %}
                 <ul class="navbar-nav text-uppercase ml-auto">
@@ -59,5 +60,6 @@
 <script src="{% static 'index/assets/mail/contact_me.js'%}"></script>
 <!-- Core theme JS-->
 <script src="{% static 'index/js/scripts.js'%}"></script>
+
 </body>
 </html>

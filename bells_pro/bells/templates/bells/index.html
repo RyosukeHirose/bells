@@ -11,7 +11,7 @@
                 <div class="masthead-heading text-uppercase"></div>
             </div>
             {% if user.is_authenticated %}
-                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="{% url 'bells:dashboard' %}">{{ user.username }}さんのマイページ</a>
+                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="{% url 'bells:dashboard' user %}">{{ user.username }}さんのマイページ</a>
             {% else %}
                 <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="{% url 'login' %}">ログイン</a>
             {% endif %}

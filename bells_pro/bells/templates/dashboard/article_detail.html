@@ -1,0 +1,26 @@
+{% extends 'base_dashboard.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+{% load markdown_extras %}
+
+{% block dashboard %}
+<div class="content">
+    {{ article.title }}
+    {{ article.likes}}
+    {{ article.detail|markdown|safe }}
+    <p>ログインユーザーがライクしているか:{{ like_check }}</p>
+    <p>ライクされている数：{{ likes_number }}</p>
+    <p>ログインユーザー {{ login_user }}</p>
+    {{user.id}}
+    <ul>
+        {% if like_check %}
+            <li><a role="button" aria-pressed="true" onclick="likes(event, '{{ user.id }}','{{ article.id }}')">いいね！<span>({{ likes_number }})</span></a></li>
+        {% else %}
+            <li><a role="button" aria-pressed="false" onclick="likes(event, '{{ user.id }}','{{ article.id }}')">いいね！<span>({{ likes_number }})</span></a></li>
+        {% endif %}
+    </ul>
+</div>
+
+
+{% endblock %}

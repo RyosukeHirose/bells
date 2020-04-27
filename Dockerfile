@@ -11,7 +11,12 @@ RUN apt-get update \
 && pip install -r requirements.txt \
 && apt-get install -y python3-dev default-libmysqlclient-dev \
 && pip install mysqlclient \
-&& pip install django-bootstrap4
+&& pip install django-bootstrap4 \
+# mdeditorの場合
+&& pip install django-mdeditor \
+&& pip install Markdown
+# mediumeditorの場合
+pip install django-mediumeditor
 
 # mkdir bells_pro
 # django-admin startproject config .

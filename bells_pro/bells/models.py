@@ -1,10 +1,13 @@
 from django.db import models
+from mdeditor.fields import MDTextField
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager, Group, Permission, GroupManager, PermissionManager, ContentType
 from django.utils import timezone
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import gettext_lazy as _
 
+from mediumeditor.widgets import MediumEditorTextarea
 #　原本
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -114,7 +117,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Article(models.Model):
     title = models.CharField(max_length=70)
-    detail = models.TextField()
+    detail = MDTextField()
+    # detail = models.TextField()
+    # detail = MediumEditorTextarea()
     trainer = models.ForeignKey(User, on_delete=models.CASCADE)
 
     user_likes = models.ManyToManyField(
@@ -128,6 +133,8 @@ class Article(models.Model):
         related_name="favorites",
         blank=True,
     )
+    def __str__(self):
+        return self.title
 
 class Comment(models.Model):
     comment = models.CharField(max_length=256)
