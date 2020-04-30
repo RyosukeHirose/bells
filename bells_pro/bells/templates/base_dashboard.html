@@ -20,25 +20,19 @@
         <!-- CSS Files -->
         <link href="{% static 'dashboard/assets/css/bootstrap.min.css' %}" rel="stylesheet" />
         <link href="{% static 'dashboard/assets/css/paper-dashboard.css' %}" rel="stylesheet" />
+
+        <!-- 手作りcss -->
+        <link href="{% static 'dashboard/assets/css/original.css' %}" rel="stylesheet" />
+
+        <!-- 手作りscss -->
+        <script src="{% static 'dashboard/assets/js/original.js' %}"></script>
       </head>
       
       <body>
       <div class="sidebar" data-color="white" data-active-color="danger">
-            <div class="logo">
-              <a href="{% url 'bells:dashboard' user %}" class="simple-text logo-mini">
-                <div class="logo-image-small">
-                  <img src="../assets/img/logo-small.png">
-                </div>
-                <!-- <p>CT</p> -->
-              </a>
-              <a href="{% url 'bells:dashboard' user %}" class="simple-text logo-normal">
-                Creative Tim
-                <!-- <div class="logo-image-big">
-                  <img src="../assets/img/logo-big.png">
-                </div> -->
-              </a>
-            </div>
+    
             <div class="sidebar-wrapper">
+                <div class="col-md-11 ml-md-auto mr-md-auto">
                     <div class="card card-user">
                       <div class="image">
                         <img src="{% static 'dashboard/assets/img/damir-bosnjak.jpg' %}" alt="...">
@@ -72,6 +66,7 @@
                         </div>
                       </div>
                     </div>
+                </div>
                     <div class="card">
                       <div class="card-header">
                         <h4 class="card-title">Team Members</h4>
@@ -255,7 +250,7 @@
         <script src="{% static 'dashboard/assets/js/core/bootstrap.min.js' %}"></script>
         <script src="{% static 'dashboard/assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
         <!-- 手作りjs -->
-        <script src="{% static 'dashboard/assets/js/original.js' s%}"></script>
+        <script src="{% static 'dashboard/assets/js/original.js' %}"></script>
    
         <!--  Google Maps Plugin    -->
         <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->

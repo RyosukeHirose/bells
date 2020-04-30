@@ -2449,7 +2449,7 @@ License - nucleoapp.com/license/
   display: inline-block;
   font: normal normal normal 14px/1 'nucleo-icons';
   font-size: inherit;
-  speak-as: none;
+  speak: none;
   text-transform: none;
   /* Better Font Rendering */
   -webkit-font-smoothing: antialiased;

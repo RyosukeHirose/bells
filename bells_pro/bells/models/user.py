@@ -1,14 +1,10 @@
 from django.db import models
-from mdeditor.fields import MDTextField
-
-from django.core.validators import MaxValueValidator, MinValueValidator
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager, Group, Permission, GroupManager, PermissionManager, ContentType
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils import timezone
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import gettext_lazy as _
 
-from mediumeditor.widgets import MediumEditorTextarea
-#　原本
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -114,67 +110,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def natural_key(self):
         return (self.username,)
-
-class Article(models.Model):
-    title = models.CharField(max_length=70)
-    detail = MDTextField()
-    # detail = models.TextField()
-    # detail = MediumEditorTextarea()
-    trainer = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    user_likes = models.ManyToManyField(
-        User,
-        related_name="likes",
-        blank=True,
-    )
-
-    user_favorites = models.ManyToManyField(
-        User,
-        related_name="favorites",
-        blank=True,
-    )
-    def __str__(self):
-        return self.title
-
-class Comment(models.Model):
-    comment = models.CharField(max_length=256)
-    article = models.ForeignKey(
-        Article, 
-        related_name="comments",
-        on_delete=models.CASCADE,
-        )
-    user = models.ForeignKey(
-        User, 
-        related_name="commets",
-        on_delete=models.SET_NULL, 
-        null = True
-        )
-
-class Tag(models.Model):
-    tag = models.CharField(max_length=20)
-    article = models.ManyToManyField(
-        Article,
-        related_name="tags",
-        blank=True,
-    )
-
-class QuestionBox(models.Model):
-    detail = models.TextField()
-    user = models.ForeignKey(
-        User,
-        related_name="question_box",
-        on_delete=models.CASCADE
-    )
-
-class Answer(models.Model):
-    question_box = models.ForeignKey(
-        QuestionBox,
-        related_name = "answers",
-        on_delete=models.CASCADE
-    )
-    User = models.ForeignKey(
-        User,
-        related_name="answers",
-        on_delete=models.SET_NULL,
-        null=True
-    )

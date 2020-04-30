@@ -1,5 +1,5 @@
 from django import forms
-from .models import Article
+from .models.article import Article
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
@@ -45,7 +45,7 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ('title', 'detail', 'trainer')
+        fields = ('title', 'detail')
 
 
 # mediumeditorの場合のフォーム

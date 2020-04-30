@@ -1,0 +1,33 @@
+/* サイドバーの大きさ調整 */
+.sidebar,
+.off-canvas-sidebar{
+    width: 400px;}
+    .sidebar .sidebar-wrapper,
+    .off-canvas-sidebar .sidebar-wrapper {
+        width: 400px;
+    }
+
+.main-panel{
+        width: calc(100% - 400px);
+    }
+@media screen and (max-width: 991px) {
+    .main-panel{
+        width:100%;
+    }
+    .sidebar, .off-canvas-sidebar{
+        width: 260px;
+        transform: translate3d(-260px, 0, 0);
+    }
+    .sidebar .sidebar-wrapper,
+    .off-canvas-sidebar .sidebar-wrapper{
+        width: 260px;
+    }
+
+
+}
+
+.balance{
+    height:20rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

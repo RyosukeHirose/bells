@@ -12,7 +12,9 @@
     <p>ログインユーザーがライクしているか:{{ like_check }}</p>
     <p>ライクされている数：{{ likes_number }}</p>
     <p>ログインユーザー {{ login_user }}</p>
-    {{user.id}}
+    <p>所有者{{ article.trainer}}</p>
+    {{user.id}}<br>
+    {{article.created_at}}
     <ul>
         {% if like_check %}
             <li><a role="button" aria-pressed="true" onclick="likes(event, '{{ user.id }}','{{ article.id }}')">いいね！<span>({{ likes_number }})</span></a></li>

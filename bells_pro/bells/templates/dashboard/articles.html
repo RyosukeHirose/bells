@@ -11,6 +11,7 @@
 
         {% for article in articles%}
         <a href="{%  url 'bells:article' article.trainer article.id%}">
+            <h2>{{article.title}}</h2>
             <li>{{ article.detail|markdown|safe }}</li>
         </a>
         <p>---------------</p>
