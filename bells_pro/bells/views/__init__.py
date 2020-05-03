@@ -5,3 +5,5 @@ from . import dashboard
 from . import defs
 from . import signup
 from . import user_login
+from . import trainer_list
+from . import trainer

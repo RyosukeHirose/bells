@@ -1,0 +1,37 @@
+{% extends 'base_dashboard.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+{% load follower_count %}
+{% load follow_check %}
+
+{% block dashboard %}
+<div class="content">
+    <ul>
+        {% for trainer in trainers %}
+            <div class="card card-user balance">
+                <div class="card-header">
+                    <a href="{% url 'bells:trainer_detail' trainer.username %}"><h2>{{　trainer.username }}</h2></a>
+                </div>
+                <div class="card-body">
+                    <p>{{ trainer.id }}</p>
+                    <p>フォロワー数:{% follower_count user.id trainer.id %}</p>
+                    <p>フォロワー数:{{ trainer.followers.count }}</p>
+
+                    <ul>
+                        {% if trainer|follow_check:user.id %}
+                            <li><a role="button" aria-pressed="true" onclick="follow(event, '{{ user.id }}','{{ trainer.id }}')">フォロー！<span>({%  follower_count user.id 　trainer.id %})</span></a></li>
+                        {% else %}
+                            <li><a role="button" aria-pressed="false" onclick="follow(event, '{{ user.id }}','{{ trainer.id }}')">フォロー！<span>({%  follower_count user.id 　trainer.id %})</span></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+            </div>
+
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}

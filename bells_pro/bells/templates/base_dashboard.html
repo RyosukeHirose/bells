@@ -29,8 +29,8 @@
       </head>
       
       <body>
-      <div class="sidebar" data-color="white" data-active-color="danger">
-    
+      <div class="center_container">
+        <div class="sidebar" data-color="white" data-active-color="danger">
             <div class="sidebar-wrapper">
                 <div class="col-md-11 ml-md-auto mr-md-auto">
                     <div class="card card-user">
@@ -146,16 +146,18 @@
                   </a>
                 </li>
                 <li>
-                  <a href="./map.html">
+                  <a href="{% url 'bells:trainers' user %}">
                     <i class="nc-icon nc-pin-3"></i>
-                    <p>Maps</p>
+                    <p>トレーナーリスト</p>
                   </a>
                 </li>
                 <li>
-                  <a href="./notifications.html">
+                  {% if user.is_trainer %}
+                  <a href="{% url 'bells:article_create' user %}">
                     <i class="nc-icon nc-bell-55"></i>
-                    <p>Notifications</p>
+                    <p>記事作成</p>
                   </a>
+                  {% endif %}
                 </li>
                 <li>
                   <a href="./user.html">
@@ -243,7 +245,7 @@
             </nav>
             {% block dashboard %}{% endblock %}
         </div>
-      
+      </div>
         <!--   Core JS Files   -->
         <script src="{% static 'dashboard/assets/js/core/jquery.min.js' %}"></script>
         <script src="{% static 'dashboard/assets/js/core/popper.min.js' %}"></script>

@@ -13,7 +13,6 @@ class ArticleView(generic.DetailView, LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         login_user = self.request.user
-        print(login_user.id)
         context['articles'] = Article.objects.get(id=self.kwargs['pk'])
         context['likes_number'] =  context['articles'].user_likes.count()
 

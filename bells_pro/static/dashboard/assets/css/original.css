@@ -31,3 +31,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* .center_container{
+    max-width: 991px;
+    margin: auto;
+} */

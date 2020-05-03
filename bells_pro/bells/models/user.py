@@ -110,3 +110,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def natural_key(self):
         return (self.username,)
+

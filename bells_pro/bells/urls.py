@@ -13,4 +13,7 @@ urlpatterns = [
     path('article/<str:username>/<int:pk>', views.article.ArticleView.as_view(), name='article'),
     path('signup/', views.signup.SignUpView.as_view(), name='signup'),
     path('likes/<int:user_id>/<int:article_id>', views.defs.likes, name='likes'),
+    path('trainers/<str:user>', views.trainer_list.TrainersView.as_view(), name='trainers'),
+    path('follow/<int:user_id>/<int:trainer_id>', views.defs.follow, name='follow'),
+    path('trainer_detail/<str:slug>', views.trainer.TrainerView.as_view(), name='trainer_detail'),
 ]
